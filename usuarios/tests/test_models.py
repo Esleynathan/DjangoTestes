@@ -1,8 +1,17 @@
 from django.test import TestCase
+from ..models import Usuario
 
 class UsuarioTestCase(TestCase):
-    def test_um_e_um(self):
-        self.assertEqual(1,2)
+    def setUp(self):
+        Usuario.objects.create(nome='esley', email='esley@gmail.com', senha="1234")
 
-    def test_dois_e_dois(self):
-        self.assertEqual(2,2)    
+    def test_models_criado_no_banco(self):
+        usuario = Usuario.objects.get(nome = 'esley')
+
+        self.assertEqual(usuario.__str__(), 'esley')
+    
+    def test_add_pontos(self):
+        usuario = Usuario.objects.get(nome = 'esley')
+        usuario.add_pontos()
+
+        self.assertEqual(usuario.pontos, 10)
