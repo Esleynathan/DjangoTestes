@@ -10,6 +10,6 @@ class ViewsTestCase(TestCase):
         self.url = reverse('home')
 
     def test_status_code_200(self):
-        responde = self.client.get(self.url)
+        responde = self.client.get(f'{self.url}?id=1')
 
         self.assertEqual(responde.status_code, 200)
