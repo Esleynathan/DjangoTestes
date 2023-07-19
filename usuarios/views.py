@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Usuario
+from django.shortcuts import get_object_or_404
 
 def home(request):
-    id = request.GET.get('id')
-    if id == '1':
-        return HttpResponse('Teste')
-    else:
-        return HttpResponse(status=500)
+    email = request.GET.get('email')
+
+    usuario = get_object_or_404(Usuario, email=email)
+
+    return HttpResponse('Teste')
