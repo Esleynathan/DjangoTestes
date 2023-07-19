@@ -17,3 +17,8 @@ class ViewsTestCase(TestCase):
         responde = self.client.get(f'{self.url}?email=esley@gmail.com')
 
         self.assertEqual(responde.status_code, 200)
+
+    def test_status_code_404(self):
+        responde = self.client.get(f'{self.url}?email=nathan@gmail.com')
+
+        self.assertEqual(responde.status_code, 404)
