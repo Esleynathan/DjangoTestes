@@ -3,7 +3,7 @@ from django.test import TestCase
 from django.test.client import Client
 from django.urls import reverse
 from ..models import Usuario
-
+from django.contrib.messages import get_messages
 
 class ViewsTestCase(TestCase):
 
@@ -33,3 +33,8 @@ class ViewsTestCase(TestCase):
         response = self.client.get(f'{self.url}?email=esley@gmail.com&cond=2')
 
         self.assertTemplateUsed(response, 'logar.html')
+
+    def test_message_error_email_gmail(self):
+        response = self.client.get(f'{self.url}?email=esley@hotmail.com&cond=2')
+        messages = [m.message for m in get_messages(response.wsgi_request)]
+        self.assertIn('Informe um email do gmail', messages)

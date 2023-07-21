@@ -2,11 +2,16 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Usuario
 from django.shortcuts import get_object_or_404
+from django.contrib.messages import constants
+from django.contrib import messages
 
 def home(request):
     email = request.GET.get('email')
-
     cond = request.GET.get('cond')
+
+    if "@gmail" not in email:
+        messages.add_message(request, constants.ERROR, 'Informe um email do gmail')
+        return render(request, 'home.html')
     
     usuario = get_object_or_404(Usuario, email=email)
 
